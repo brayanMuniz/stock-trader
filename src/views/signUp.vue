@@ -86,7 +86,7 @@ export default Vue.extend({
         .doc(myUid)
         .set({
           name: this.name,
-          startingAmount: this.startingAmount
+          currentFunds: this.startingAmount
         });
     },
     async makeNewUser() {
