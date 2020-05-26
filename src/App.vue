@@ -21,6 +21,9 @@ export default Vue.extend({
     await firebaseApp.auth().onAuthStateChanged(async user => {
       if (user) {
         store.commit("updateUserUid", user.uid);
+        const userData: string | null = window.localStorage.getItem("userData");
+        if (userData != null)
+          store.commit("updateMyData", JSON.parse(userData));
         if (store.getters.getMyUserData == null)
           await this.getMyData().then(res => {
             this.dataReady = true;
@@ -37,6 +40,7 @@ export default Vue.extend({
     });
   },
   methods: {
+    // Todo: Whenever you call updateMyData, update window.localStorage;
     async getMyData() {
       const myUId: string | null = store.getters.getUserUid;
       if (myUId != null)
@@ -45,6 +49,10 @@ export default Vue.extend({
           .doc(myUId)
           .get()
           .then(done => {
+            window.localStorage.setItem(
+              "userData",
+              JSON.stringify(done.data())
+            );
             store.commit("updateMyData", done.data());
           });
     }
