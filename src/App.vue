@@ -18,6 +18,7 @@ export default Vue.extend({
     };
   },
   async mounted() {
+    // window.localStorage.clear();
     firebaseApp.auth().onAuthStateChanged(async user => {
       if (user) {
         store.commit("updateUserUid", user.uid);
@@ -35,7 +36,6 @@ export default Vue.extend({
           await this.getMyUserData().then(res => {
             this.dataReady = true;
           });
-
         else {
           this.dataReady = true;
         }

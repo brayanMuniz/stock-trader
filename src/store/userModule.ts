@@ -49,7 +49,7 @@ interface UserState {
   userProfilePictureUrl: string | null;
 }
 
-interface Portfolio {
+export interface Portfolio {
   name: string;
   currentFunds: number;
 }
