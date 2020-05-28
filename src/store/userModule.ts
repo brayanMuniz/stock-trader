@@ -1,9 +1,12 @@
 import { ActionTree } from "vuex";
 import { GetterTree } from "vuex";
 import { MutationTree } from "vuex";
+
+// State Tree
 const state: UserState = {
-  userUid: String() || null,
+  userUid: null,
   userData: null,
+  userProfilePictureUrl: null,
 };
 
 const getters: GetterTree<any, any> = {
@@ -12,6 +15,9 @@ const getters: GetterTree<any, any> = {
   },
   getMyUserData(state) {
     return state.userData;
+  },
+  getMyProfilePictureURL(state) {
+    return state.userProfilePictureUrl;
   },
 };
 
@@ -22,8 +28,13 @@ const mutations: MutationTree<any> = {
   updateMyData(state, myData: Portfolio | null) {
     state.userData = myData;
   },
+  updateProfilePictureURL(state, newProfilePictureURL: string) {
+    state.userProfilePictureUrl = newProfilePictureURL;
+  },
 };
 const actions: ActionTree<any, any> = {};
+
+// Exports
 export default {
   actions,
   mutations,
@@ -31,9 +42,11 @@ export default {
   state,
 };
 
+// Interfaces
 interface UserState {
   userUid: string | null;
   userData: Portfolio | null;
+  userProfilePictureUrl: string | null;
 }
 
 interface Portfolio {

@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { firebaseApp, db } from "@/db.ts";
+import { firebaseApp, db, storage } from "@/db.ts";
 import navbar from "@/components/navbar.vue";
 import store from "@/store/store";
 import Vue from "vue";
@@ -17,31 +17,38 @@ export default Vue.extend({
       dataReady: false
     };
   },
-  async created() {
-    await firebaseApp.auth().onAuthStateChanged(async user => {
+  async mounted() {
+    firebaseApp.auth().onAuthStateChanged(async user => {
       if (user) {
         store.commit("updateUserUid", user.uid);
         const userData: string | null = window.localStorage.getItem("userData");
-        if (userData != null)
+
+        if (userData != null) {
           store.commit("updateMyData", JSON.parse(userData));
+          store.commit(
+            "updateProfilePictureURL",
+            JSON.parse(userData).profilePictureURL
+          );
+        }
+
         if (store.getters.getMyUserData == null)
-          await this.getMyData().then(res => {
+          await this.getMyUserData().then(res => {
             this.dataReady = true;
           });
+
         else {
           this.dataReady = true;
         }
-        console.log(store.getters.getMyUserData);
       } else {
         console.log("There is no user");
         store.commit("updateUserUid", null);
+        store.commit("updateMyData", null);
         this.dataReady = true;
       }
     });
   },
   methods: {
-    // Todo: Whenever you call updateMyData, update window.localStorage;
-    async getMyData() {
+    async getMyUserData() {
       const myUId: string | null = store.getters.getUserUid;
       if (myUId != null)
         await db
@@ -60,8 +67,5 @@ export default Vue.extend({
   components: {
     navbar
   }
-  // firestore: {
-  //   Users: db.collection("Users").doc('myUserId')
-  // }
 });
 </script>
