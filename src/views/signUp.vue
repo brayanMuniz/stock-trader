@@ -68,11 +68,12 @@ export default Vue.extend({
       console.log(this.profilePicture);
     },
     // Todo: fix profile picture misuse of type
+    // Todo: Make FB Functions and whenver a user adds a profile picture add a field linking their url to it in firestores
     async uploadProfilePicture(myUid: string) {
       if (this.profilePicture) {
         const imageUserRef = firebaseApp
           .storage()
-          .ref(`users/${myUid}/${this.profilePicture.name}`);
+          .ref(`users/${myUid}/profilePicture`);
         await imageUserRef
           .put(this.profilePicture)
           .then((res: firebase.storage.UploadTaskSnapshot) => {
