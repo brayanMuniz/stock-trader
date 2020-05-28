@@ -1,6 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <button
       class="navbar-toggler"
       type="button"
@@ -16,29 +15,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <router-link to="/" class="nav-link">Home</router-link>|
+          <router-link to="/" class="nav-link">Stock-Trader</router-link>
         </li>
         <li class="nav-item active">
-          <router-link to="/about" class="nav-link">About</router-link>|
+          <router-link to="/about" class="nav-link">About</router-link>
         </li>
-
-        <div class="card" v-if="userSignedIn">
-          <img
-            v-if="userHasImageURL"
-            width="100"
-            :src="userProfileImageURL"
-            class="card-img-top"
-            alt
-          />
-          <div class="card-body">
-            <h5 class="card-title">{{userData.name}}</h5>
-            <p class="card-text">{{userData.currentFunds}}</p>
-          </div>
-        </div>
 
         <li class="nav-item active" v-if="!userSignedIn">
           <router-link to="/signUp" class="nav-link">Sign Up</router-link>
         </li>
+
+        <!-- Todo: push to the right side -->
+        <router-link class="ml-auto navbar-brand" to="/portfolio">
+          <img v-if="userHasImageURL" width="30" height="30" :src="userProfileImageURL" alt />
+        </router-link>
       </ul>
     </div>
   </nav>
@@ -46,7 +36,8 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "@/store/store";
-import { Portfolio } from "../store/userModule";
+import { Portfolio } from "@/store/userModule";
+
 export default Vue.extend({
   computed: {
     userSignedIn(): boolean {
