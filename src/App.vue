@@ -18,6 +18,7 @@ export default Vue.extend({
     };
   },
   async mounted() {
+    // Todo: use next line if there is a problem
     // window.localStorage.clear();
     firebaseApp.auth().onAuthStateChanged(async user => {
       if (user) {
@@ -71,5 +72,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+body {
+  background-color: #343a40 !important;
+  color: white !important;
+}
+
 @import "~bootstrap/scss/bootstrap";
 </style>

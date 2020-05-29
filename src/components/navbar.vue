@@ -1,4 +1,5 @@
 <template>
+  <!-- Todo: when the navbar goes down, make it a darker color -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <button
       class="navbar-toggler"
@@ -13,10 +14,28 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+      <router-link class="navbar-brand" to="/">
+        <img v-if="userHasImageURL" width="30" height="30" :src="userProfileImageURL" alt />
+      </router-link>
+
+      <form class="ml-auto form-inline my-2 my-lg-0">
+        <input
+          class="form-control mr-sm-4"
+          type="search"
+          placeholder="Search For Stocks"
+          aria-label="Search"
+        />
+      </form>
+
+      <ul class="navbar-nav">
         <li class="nav-item active">
-          <router-link to="/" class="nav-link">Stock-Trader</router-link>
+          <router-link to="/cash" class="nav-link">Cash</router-link>
         </li>
+
+        <li class="nav-item active">
+          <router-link to="/" class="nav-link">Portfolio</router-link>
+        </li>
+
         <li class="nav-item active">
           <router-link to="/about" class="nav-link">About</router-link>
         </li>
@@ -24,11 +43,6 @@
         <li class="nav-item active" v-if="!userSignedIn">
           <router-link to="/signUp" class="nav-link">Sign Up</router-link>
         </li>
-
-        <!-- Todo: push to the right side -->
-        <router-link class="ml-auto navbar-brand" to="/portfolio">
-          <img v-if="userHasImageURL" width="30" height="30" :src="userProfileImageURL" alt />
-        </router-link>
       </ul>
     </div>
   </nav>
