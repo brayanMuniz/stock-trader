@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-10">
-          <stock-chart></stock-chart>
+          <stock-chart :chartData="datacollection"></stock-chart>
         </div>
         <div class="col-md-2">
           <watchlist />
@@ -22,6 +22,12 @@ import watchlist from "@/components/watchlist.vue";
 
 export default Vue.extend({
   name: "Home",
+  data() {
+    return {
+      datacollection: null
+    };
+  },
+  methods: {},
   computed: {
     userSignedIn(): boolean {
       const myUserUid: string | null = store.getters.getUserUid;
