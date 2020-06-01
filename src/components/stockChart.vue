@@ -27,7 +27,9 @@ export default Vue.extend({
           {
             label: "Crypto Market",
             backgroundColor: "#f87979",
+            borderColor: '#8A0707',
             lineTension: 0,
+            fill: false,
             data: this.getArrayOfRandomInts()
           }
         ]

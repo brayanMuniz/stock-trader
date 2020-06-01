@@ -22,6 +22,8 @@ export interface ChartData {
 export interface Dataset {
   label: string;
   data: Array<number>;
+  borderColor?: string;
+  fill?: boolean;
   lineTension?: number;
   backgroundColor?: string;
 }
