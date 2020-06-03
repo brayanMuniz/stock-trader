@@ -1,6 +1,6 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+  <!-- Todo: when the navbar goes down, make it a darker color -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <button
       class="navbar-toggler"
       type="button"
@@ -14,27 +14,31 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+      <router-link class="navbar-brand" to="/">
+        <img v-if="userHasImageURL" width="30" height="30" :src="userProfileImageURL" alt />
+      </router-link>
+
+      <form class="ml-auto form-inline my-2 my-lg-0">
+        <input
+          class="form-control mr-sm-4"
+          type="search"
+          placeholder="Search For Stocks"
+          aria-label="Search"
+        />
+      </form>
+
+      <ul class="navbar-nav">
         <li class="nav-item active">
-          <router-link to="/" class="nav-link">Home</router-link>|
-        </li>
-        <li class="nav-item active">
-          <router-link to="/about" class="nav-link">About</router-link>|
+          <router-link to="/cash" class="nav-link">Cash</router-link>
         </li>
 
-        <div class="card" v-if="userSignedIn">
-          <img
-            v-if="userHasImageURL"
-            width="100"
-            :src="userProfileImageURL"
-            class="card-img-top"
-            alt
-          />
-          <div class="card-body">
-            <h5 class="card-title">{{userData.name}}</h5>
-            <p class="card-text">{{userData.currentFunds}}</p>
-          </div>
-        </div>
+        <li class="nav-item active">
+          <router-link to="/" class="nav-link">Portfolio</router-link>
+        </li>
+
+        <li class="nav-item active">
+          <router-link to="/about" class="nav-link">About</router-link>
+        </li>
 
         <li class="nav-item active" v-if="!userSignedIn">
           <router-link to="/signUp" class="nav-link">Sign Up</router-link>
@@ -46,7 +50,8 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "@/store/store";
-import { Portfolio } from "../store/userModule";
+import { Portfolio } from "@/store/userModule";
+
 export default Vue.extend({
   computed: {
     userSignedIn(): boolean {
