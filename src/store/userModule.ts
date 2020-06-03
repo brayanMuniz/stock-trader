@@ -22,6 +22,9 @@ const mutations: MutationTree<any> = {
   updateMyData(state, myData: Portfolio | null) {
     state.userData = myData;
   },
+  updateProfilePictureURL(state, newProfilePictureURL: string | null) {
+    state.userProfilePictureUrl = newProfilePictureURL;
+  },
 };
 const actions: ActionTree<any, any> = {};
 export default {

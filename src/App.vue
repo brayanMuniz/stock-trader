@@ -24,8 +24,14 @@ export default Vue.extend({
         const userData: string | null = window.localStorage.getItem("userData");
         if (userData != null)
           store.commit("updateMyData", JSON.parse(userData));
-        if (store.getters.getMyUserData == null)
-          await this.getMyData().then(res => {
+          store.commit(
+            "updateProfilePictureURL",
+            JSON.parse(userData).profilePictureURL
+          );
+        }
+
+        if (store.getters.getMyUserData === null)
+          await this.getMyUserData().then(res => {
             this.dataReady = true;
           });
         else {
@@ -34,6 +40,8 @@ export default Vue.extend({
         console.log(store.getters.getMyUserData);
       } else {
         console.log("There is no user");
+        window.localStorage.clear();
+        store.commit("updateProfilePictureURL", null);
         store.commit("updateUserUid", null);
         this.dataReady = true;
       }
