@@ -33,7 +33,7 @@ export default Vue.extend({
           );
         }
 
-        if (store.getters.getMyUserData == null)
+        if (store.getters.getMyUserData === null)
           await this.getMyUserData().then(res => {
             this.dataReady = true;
           });
@@ -42,6 +42,8 @@ export default Vue.extend({
         }
       } else {
         console.log("There is no user");
+        window.localStorage.clear();
+        store.commit("updateProfilePictureURL", null);
         store.commit("updateUserUid", null);
         store.commit("updateMyData", null);
         this.dataReady = true;

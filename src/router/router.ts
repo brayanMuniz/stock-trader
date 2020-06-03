@@ -1,10 +1,13 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+// View
 import Home from "@/views/Home.vue";
 import SignUp from "@/views/signUp.vue";
+import signIn from "@/views/SignIn.vue";
 
 Vue.use(VueRouter);
 
+// Todo: Add safe routing
 const routes: Array<RouteConfig> = [
   {
     path: "/",
@@ -14,12 +17,10 @@ const routes: Array<RouteConfig> = [
   {
     path: "/about",
     name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   { path: "/signUp", name: "Sign Up", component: SignUp },
+  { path: "/signIn", name: "Sign In", component: signIn },
 ];
 
 const router = new VueRouter({

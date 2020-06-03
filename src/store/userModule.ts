@@ -28,7 +28,7 @@ const mutations: MutationTree<any> = {
   updateMyData(state, myData: Portfolio | null) {
     state.userData = myData;
   },
-  updateProfilePictureURL(state, newProfilePictureURL: string) {
+  updateProfilePictureURL(state, newProfilePictureURL: string | null) {
     state.userProfilePictureUrl = newProfilePictureURL;
   },
 };

@@ -27,7 +27,7 @@
         />
       </form>
 
-      <ul class="navbar-nav">
+      <ul class="navbar-nav" v-if="userSignedIn">
         <li class="nav-item active">
           <router-link to="/cash" class="nav-link">Cash</router-link>
         </li>
@@ -37,10 +37,28 @@
         </li>
 
         <li class="nav-item active">
-          <router-link to="/about" class="nav-link">About</router-link>
+          <a href="#" class="nav-link" @click="signOut">Sign Out</a>
         </li>
 
         <li class="nav-item active" v-if="!userSignedIn">
+          <router-link to="/signIn" class="nav-link">Sign In</router-link>
+        </li>
+
+        <li class="nav-item active" v-if="!userSignedIn">
+          <router-link to="/signUp" class="nav-link">Sign Up</router-link>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav" v-else>
+        <li class="nav-item active">
+          <router-link to="/about" class="nav-link">About</router-link>
+        </li>
+
+        <li class="nav-item active">
+          <router-link to="/signIn" class="nav-link">Sign In</router-link>
+        </li>
+
+        <li class="nav-item active">
           <router-link to="/signUp" class="nav-link">Sign Up</router-link>
         </li>
       </ul>
@@ -51,8 +69,19 @@
 import Vue from "vue";
 import store from "@/store/store";
 import { Portfolio } from "@/store/userModule";
+import { firebaseApp } from "../db";
 
 export default Vue.extend({
+  methods: {
+    async signOut() {
+      await firebaseApp
+        .auth()
+        .signOut()
+        .then(res => {
+          console.log(res, "signed out");
+        });
+    }
+  },
   computed: {
     userSignedIn(): boolean {
       const myUserUid: string | null = store.getters.getUserUid;

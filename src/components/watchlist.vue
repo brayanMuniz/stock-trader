@@ -28,6 +28,7 @@ export default Vue.extend({
   methods: {
     getExampleData(): Array<Topic> {
       const exampleDataArray: Array<Topic> = [];
+
       const exampleData: Topic = {
         topicName: "Crypto",
         stocksWathced: [
@@ -39,6 +40,7 @@ export default Vue.extend({
           }
         ]
       };
+      
       const exampleDataTwo: Topic = {
         topicName: "Overview",
         stocksWathced: [
