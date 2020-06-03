@@ -1,6 +1,6 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+  <!-- Todo: when the navbar goes down, make it a darker color -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <button
       class="navbar-toggler"
       type="button"
@@ -29,10 +29,11 @@
 
       <ul class="navbar-nav" v-if="userSignedIn">
         <li class="nav-item active">
-          <router-link to="/" class="nav-link">Home</router-link>|
+          <router-link to="/cash" class="nav-link">Cash</router-link>
         </li>
+
         <li class="nav-item active">
-          <router-link to="/about" class="nav-link">About</router-link>|
+          <router-link to="/" class="nav-link">Portfolio</router-link>
         </li>
 
         <li class="nav-item active">
@@ -86,6 +87,18 @@ export default Vue.extend({
       const myUserUid: string | null = store.getters.getUserUid;
       if (myUserUid != null) return true;
       return false;
+    },
+    userHasImageURL(): boolean {
+      const myProfileImageURL: string | null =
+        store.getters.getMyProfilePictureURL;
+      if (myProfileImageURL != null) return true;
+      return false;
+    },
+    userProfileImageURL(): string {
+      return store.getters.getMyProfilePictureURL;
+    },
+    userData(): Portfolio {
+      return store.getters.getMyUserData;
     }
   }
 });
