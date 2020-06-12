@@ -51,7 +51,7 @@
 <script lang="ts">
 // Todo: add file for images, name, starting amount
 import Vue from "vue";
-import { firebaseApp, db } from "@/db.ts";
+import { firebaseApp } from "@/db.ts";
 export default Vue.extend({
   data() {
     return {
@@ -82,7 +82,8 @@ export default Vue.extend({
       }
     },
     async addUserData(myUid: string) {
-      return await db
+      return await firebaseApp
+        .firestore()
         .collection("users")
         .doc(myUid)
         .set({
