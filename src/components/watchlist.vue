@@ -1,9 +1,9 @@
 <template>
   <div class="card-group">
-    <div class="card" v-for="topicStocks in exampleData" :key="topicStocks">
+    <div class="card" v-for="topicStocks in exampleData" :key="topicStocks.topicName">
       <div class="card-header">{{topicStocks.topicName}}</div>
       <div class="card-body">
-        <div class="card" v-for="stock in topicStocks.stocksWathced" :key="stock">
+        <div class="card" v-for="stock in topicStocks.stocksWathced" :key="stock.name">
           <div class="card-header">{{stock.name}}</div>
           <div class="card-text">${{stock.currentPrice}}</div>
           <div class="card-footer">{{stock.amountOwned}}</div>
