@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { firebaseApp, db, storage } from "@/db.ts";
+import { firebaseApp } from "@/db.ts";
 import navbar from "@/components/navbar.vue";
 import store from "@/store/store";
 import Vue from "vue";
@@ -17,14 +17,11 @@ export default Vue.extend({
       dataReady: false
     };
   },
-  async mounted() {
-    // Todo: use next line if there is a problem
-    // window.localStorage.clear();
-    firebaseApp.auth().onAuthStateChanged(async user => {
+  async created() {
+    await firebaseApp.auth().onAuthStateChanged(async user => {
       if (user) {
         store.commit("updateUserUid", user.uid);
         const userData: string | null = window.localStorage.getItem("userData");
-
         if (userData != null) {
           store.commit("updateMyData", JSON.parse(userData));
           store.commit(
@@ -32,7 +29,6 @@ export default Vue.extend({
             JSON.parse(userData).profilePictureURL
           );
         }
-
         if (store.getters.getMyUserData === null)
           await this.getMyUserData().then(res => {
             this.dataReady = true;
@@ -54,7 +50,8 @@ export default Vue.extend({
     async getMyUserData() {
       const myUId: string | null = store.getters.getUserUid;
       if (myUId != null)
-        await db
+        await firebaseApp
+          .firestore()
           .collection("users")
           .doc(myUId)
           .get()

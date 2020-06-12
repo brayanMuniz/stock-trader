@@ -12,5 +12,6 @@ const firebaseConfig = {
 };
 
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
-export const db = firebaseApp.firestore();
-export const storage = firebaseApp.storage();
+// Side note: do not export db or storage, they will make multiple network request
+// export const db = firebaseApp.firestore();
+// export const storage = firebaseApp.storage();
