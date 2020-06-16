@@ -1,18 +1,28 @@
 import Vue from "vue";
 import { Line, mixins } from "vue-chartjs";
-const { reactiveProp } = mixins;
+import { Component, Prop } from "vue-property-decorator";
 
-export default Vue.extend({
+@Component({
   extends: Line,
-  props: {
-    chartData: Object,
-    options: Object,
-  },
-  mixins: [reactiveProp],
+  mixins: [mixins.reactiveProp],
+})
+export default class LineChart extends Vue<Line> {
+  constructor() {
+    super();
+  }
+  @Prop({
+    default: {
+      labels: [],
+      datasets: [],
+    },
+  })
+  readonly chartData!: ChartData;
+
+  @Prop() readonly options: any;
   mounted() {
     this.renderChart(this.chartData, this.options);
-  },
-});
+  }
+}
 
 export interface ChartData {
   labels: Array<number>;
