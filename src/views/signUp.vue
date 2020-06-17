@@ -58,11 +58,12 @@ export default Vue.extend({
       email: "",
       password: "",
       name: "",
-      profilePicture: File,
+      profilePicture: new Blob(),
       startingAmount: 0
     };
   },
   methods: {
+    // Todo: figure out what event is
     previewFiles(event: any): void {
       this.profilePicture = event.target.files[0];
       console.log(this.profilePicture);
