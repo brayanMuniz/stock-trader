@@ -68,7 +68,6 @@ export default Vue.extend({
       this.profilePicture = event.target.files[0];
       console.log(this.profilePicture);
     },
-    // Todo: fix profile picture misuse of type
     // Todo: Make FB Functions and whenver a user adds a profile picture add a field linking their url to it in firestores
     async uploadProfilePicture(myUid: string) {
       if (this.profilePicture) {

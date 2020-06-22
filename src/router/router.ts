@@ -1,9 +1,11 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+
 // View
 import Home from "@/views/Home.vue";
 import SignUp from "@/views/signUp.vue";
 import signIn from "@/views/SignIn.vue";
+import market from "@/views/Market.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +23,7 @@ const routes: Array<RouteConfig> = [
   },
   { path: "/signUp", name: "Sign Up", component: SignUp },
   { path: "/signIn", name: "Sign In", component: signIn },
+  { path: "/market", name: "Market", component: market },
 ];
 
 const router = new VueRouter({
